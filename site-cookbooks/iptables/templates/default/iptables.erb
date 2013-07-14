@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+CONFIG=/etc/iptables.rule
+
+. /lib/lsb/init-functions
+
+[ -x /sbin/iptables ] || exit 0
+[ -e ${CONFIG} ] || exit 0
+
+case "$1" in
+start)
+       log_daemon_msg "Configuration iptables"
+       iptables-restore $CONFIG
+       ;;
+
+stop)
+       log_daemon_msg "Deconfiguration iptables"
+       iptables -F
+       ;;
+
+save)
+       log_daemon_msg "Deconfiguration iptables"
+       iptables-save > $CONFIG
+       ;;
+
+*)
+       echo "Usage: /etc/init.d/iptables {start|stop|save}"
+       exit 1
+       ;;
+esac
+
+exit 0

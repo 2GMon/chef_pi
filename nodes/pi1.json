@@ -5,6 +5,7 @@
     },
     "run_list":[
         "network",
-        "dnsmasq"
+        "dnsmasq",
+        "iptables"
     ]
 }
