@@ -1,0 +1,22 @@
+auto lo
+
+iface lo inet loopback
+<% if node[:network][:router] %>
+auto eth0
+iface eth0 inet static
+    address 192.168.1.1
+    netmask 255.255.255.0
+auto eth1
+iface eth1 inet static
+    address 192.168.0.4
+    netmask 255.255.255.0
+    gateway 192.168.0.1
+<% else %>
+auto eth0
+iface eth0 inet dhcp
+<% end %>
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp

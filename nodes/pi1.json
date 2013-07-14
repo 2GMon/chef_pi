@@ -1,0 +1,9 @@
+{
+    "network": {
+        "hostname":"pi1",
+        "router":true
+    },
+    "run_list":[
+        "network",
+    ]
+}
