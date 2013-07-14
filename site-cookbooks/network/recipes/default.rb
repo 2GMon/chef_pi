@@ -25,6 +25,14 @@ template "/etc/network/interfaces" do
   mode  0644
 end
 
+if node[:network][:router]
+  template "/etc/resolv.conf" do
+    group "root"
+    owner "root"
+    mode  0644
+  end
+end
+
 service "networking" do
   supports :start => true, :stop => true, :reload => true, :restart => true
   action [:enable, :restart]
