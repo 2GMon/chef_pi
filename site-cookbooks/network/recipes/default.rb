@@ -13,6 +13,17 @@ template "/etc/hostname" do
   mode  0644
 end
 
+r_hostname = Regexp.new(node[:network][:hostname])
+if r_hostname =~ `hostname`
+else
+  bash "hostname" do
+    user "root"
+    code <<"EOS"
+hostname #{node[:network][:hostname]}
+EOS
+  end
+end
+
 template "/etc/hosts" do
   group "root"
   owner "root"
